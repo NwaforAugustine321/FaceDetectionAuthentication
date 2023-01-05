@@ -5,6 +5,8 @@ import WebcamViewTemplate from '../template/webcam/Webcam';
 
 function WebcamContainer() {
   const [webcam, SetWebcam] = useState(null);
+  const [isWebcamReady, SetIsWebcamReady] = useState(false);
+  const [previewSnapShot, SetPreviewSnapShot] = useState(false);
   const videoRef = useRef();
   const canvasRef = useRef();
   const snapShotRef = useRef();
@@ -19,29 +21,39 @@ function WebcamContainer() {
     });
 
     SetWebcam(webcam);
-  };
-
-  const startWebcamAuth = () => {
     webcam
       .start()
       .then((result) => {
-        console.log('webcam started');
+        SetIsWebcamReady(true);
+        console.log(isWebcamReady);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
+  const takePhoto = () => {
+    const url = webcam.snap();
+    SetPreviewSnapShot(url);
+    //url.toString().split(';')
+    console.log(canvasRef, 'k');
+  };
+
   const configuration = {
     videoRef,
     canvasRef,
     snapShotRef,
+    isWebcamReady,
   };
 
-  useEffect(setUpConfiguration, []);
+  useEffect(setUpConfiguration, [isWebcamReady]);
 
   return (
-    <WebcamViewTemplate config={configuration} onWebcamAuth={startWebcamAuth} />
+    <WebcamViewTemplate
+      config={configuration}
+      takePhoto={takePhoto}
+      preview={previewSnapShot}
+    />
   );
 }
 

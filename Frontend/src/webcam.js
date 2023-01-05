@@ -1,9 +1,8 @@
 class Webcam {
   constructor({ videoRef, canvasRef, snapShotRef, faceMode, sound }) {
     this._webcamElement = videoRef;
-    this._webcamElement.width = this._webcamElement.width || 300;
-    this._webcamElement.height =
-      this._webcamElement.height || this._webcamElement.width * (3 / 4);
+    // this._webcamElement.width = 300;
+    // this._webcamElement.height = 650;
     this._facingMode = faceMode;
     this._webcamList = [];
     this._streamList = [];
@@ -172,11 +171,12 @@ class Webcam {
   snap() {
     if (this._canvasElement != null) {
       if (this._snapSoundElement != null) {
-        this._snapSoundElement.play();
+        // this._snapSoundElement.play();
       }
-      this._canvasElement.height = this._webcamElement.scrollHeight;
-      this._canvasElement.width = this._webcamElement.scrollWidth;
+      this._canvasElement.height = 50; //this._webcamElement.scrollHeight;
+      this._canvasElement.width = 50; //this._webcamElement.scrollWidth;
       let context = this._canvasElement.getContext('2d');
+
       if (this._facingMode === 'user') {
         context.translate(this._canvasElement.width, 0);
         context.scale(-1, 1);
@@ -194,6 +194,7 @@ class Webcam {
         this._canvasElement.width,
         this._canvasElement.height
       );
+
       let data = this._canvasElement.toDataURL('image/png');
 
       return data;

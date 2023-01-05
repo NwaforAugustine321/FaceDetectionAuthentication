@@ -1,7 +1,7 @@
 import WebcamContainer from '../components/containers/Webcam';
 
-function LoginScreen() {
+function WebcamScreen() {
   return <WebcamContainer />;
 }
 
-export default LoginScreen;
+export default WebcamScreen;

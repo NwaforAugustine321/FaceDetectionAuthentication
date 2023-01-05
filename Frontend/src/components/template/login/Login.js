@@ -1,7 +1,7 @@
 import LoginView from '../../views/Login';
 
-function LoginTemplate({ onSubmit }) {
-  return <LoginView handleLogin={onSubmit} />;
+function LoginTemplate({ handSubmit, handChange }) {
+  return <LoginView handSubmit={handSubmit} handChange={handChange} />;
 }
 
 export default LoginTemplate;

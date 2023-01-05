@@ -1,12 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import LoginScreen from './screens/Webcam';
+import { RouterProvider } from 'react-router-dom';
+import routerConfiguration from './routesConfiguration';
 
 function App() {
-  return (
-    <div className='App'>
-      <LoginScreen></LoginScreen>
-    </div>
-  );
+  return <RouterProvider router={routerConfiguration} />;
 }
 
 export default App;
