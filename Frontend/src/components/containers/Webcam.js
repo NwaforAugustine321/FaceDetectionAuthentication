@@ -1,15 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 
-import Webcam from '../../webcam';
+import Webcam from '../../sdk/webcam';
 import WebcamViewTemplate from '../template/webcam/Webcam';
+import FetchSdk from '../../sdk/fetchsdk';
 
-function WebcamContainer() {
+function WebcamContainer({ payload }) {
   const [webcam, SetWebcam] = useState(null);
   const [isWebcamReady, SetIsWebcamReady] = useState(false);
   const [previewSnapShot, SetPreviewSnapShot] = useState(false);
+  const [authValidating, SetAuthValidating] = useState(false);
+
   const videoRef = useRef();
   const canvasRef = useRef();
   const snapShotRef = useRef();
+
+  const sdk = new FetchSdk();
 
   const setUpConfiguration = () => {
     const webcam = new Webcam({
@@ -35,8 +40,13 @@ function WebcamContainer() {
   const takePhoto = () => {
     const url = webcam.snap();
     SetPreviewSnapShot(url);
-    //url.toString().split(';')
-    console.log(canvasRef, 'k');
+
+    SetAuthValidating(true);
+    payload.image = url.toString().split(';')[1].split(',')[1];
+    sdk.post('login', payload);
+    setTimeout(() => {
+      SetAuthValidating(false);
+    }, 5000);
   };
 
   const configuration = {
@@ -53,6 +63,7 @@ function WebcamContainer() {
       config={configuration}
       takePhoto={takePhoto}
       preview={previewSnapShot}
+      authValidating={authValidating}
     />
   );
 }

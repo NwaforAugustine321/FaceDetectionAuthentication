@@ -1,8 +1,13 @@
 import { NextHandleFunction } from 'connect';
+import { Express } from 'express';
 import { IHttpRouter, RequestHandler } from './interface';
 
 class Server {
   constructor(private app: IHttpRouter) {}
+
+  get GetServerInstance(): IHttpRouter {
+    return this.app;
+  }
 
   Post(url: string, handler: RequestHandler): void {
     this.app.Post(url, handler);

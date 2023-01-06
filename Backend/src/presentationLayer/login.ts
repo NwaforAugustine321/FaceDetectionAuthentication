@@ -1,7 +1,7 @@
 class LoginRouter {}
 
-function InitRouter() {
+function LoginRoute() {
   return new LoginRouter();
 }
 
-export default InitRouter();
+export default LoginRoute;

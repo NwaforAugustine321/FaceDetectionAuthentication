@@ -23,7 +23,7 @@ function LoginContainer({ WebcamContainer }) {
   };
 
   return status == 'PHOTO_SNAPSHOT' ? (
-    <WebcamContainer />
+    <WebcamContainer payload={payload} />
   ) : (
     <LoginTemplate handSubmit={handSubmit} handChange={handChange} />
   );

@@ -7,6 +7,8 @@ const main_1 = __importDefault(require("./src/data-source/httpRouter/main"));
 const app_1 = __importDefault(require("./src/presentationLayer/app"));
 const PORT = 4000;
 const app = new app_1.default(new main_1.default()).Serve(PORT);
-app.Post('/', (req, res) => {
-    res.send('ok');
+app.Post('/login', (req, res) => {
+    res.json({
+        c: 'ok',
+    });
 });

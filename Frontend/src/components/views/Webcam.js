@@ -1,7 +1,7 @@
 import { Container, Button, Row, Col, Stack } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
 
-function WebcamView({ config, takePhoto, preview }) {
+function WebcamView({ config, takePhoto, preview, authValidating }) {
   return (
     <Container fluid='sm' className='my-auto vh-100'>
       <Row className='h-100 align-items-center'>
@@ -22,7 +22,7 @@ function WebcamView({ config, takePhoto, preview }) {
                       autoPlay={true}
                       playsInline={true}
                     ></video>
-                    {config.videoRef.current == undefined && (
+                    {config.videoRef.current === undefined && (
                       <div
                         className='w-100 h-100 rounded'
                         style={{ borderStyle: 'dotted', minHeight: '200px' }}
@@ -40,8 +40,8 @@ function WebcamView({ config, takePhoto, preview }) {
                       />
                     ) : (
                       <div
-                        className='w-100 h-100 rounded'
-                        style={{ borderStyle: 'dotted', minHeight: '200px' }}
+                        className='w-100 h-20 rounded'
+                        style={{ borderStyle: 'dotted', minHeight: '120px' }}
                       ></div>
                     )}
                   </Col>
@@ -64,8 +64,19 @@ function WebcamView({ config, takePhoto, preview }) {
                 <Button variant='secondary'>Login</Button>
               </Col>
               <Col lg={10}>
-                <Button variant='secondary' onClick={takePhoto}>
-                  Take Photo
+                <Button
+                  variant='secondary'
+                  onClick={takePhoto}
+                  disabled={authValidating}
+                >
+                  {authValidating ? (
+                    <div
+                      className='spinner-border text-primary spinner-grow-sm'
+                      role='status'
+                    ></div>
+                  ) : (
+                    <span>Take Photo</span>
+                  )}
                 </Button>
               </Col>
             </Row>
